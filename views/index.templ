@@ -1,0 +1,34 @@
+package views
+
+import (
+	"htmx/api"
+	"htmx/globals"
+)
+
+templ Index() {
+	<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset="UTF-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			<title>HTMX</title>
+			<link rel="stylesheet" href="/static/css/output.css"/>
+			<script src="https://unpkg.com/htmx.org@2.0.1"></script>
+		</head>
+		<body class="grid grid-cols-[1fr_3fr] gap-2">
+			<nav class="m-0 p-0">
+				<h1 class="text-xl font-bold text-center">Types</h1>
+				@ApiResult(api.ApiCall())
+			</nav>
+			<div id="main">
+				<h1 class="text-xl font-bold">Count render</h1>
+				@Count(globals.Number)
+				<button
+					hx-post="/count"
+					hx-target="#count"
+					class="bg-orange-300 px-4 rounded-full"
+				>Click me</button>
+			</div>
+		</body>
+	</html>
+}

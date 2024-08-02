@@ -1,0 +1,13 @@
+package views
+
+import "htmx/api"
+
+
+templ ApiResult(items []api.Type) {
+	<ul class="grid gap-2">
+		for _, item := range items {
+			{link := templ.URL("/type/" + item.Name)}
+			<a href={ templ.URL(link + item.Name) } hx-post={templ.URL(link + item.Name)}>{ item.Name }</a>
+		}
+	</ul>
+}
