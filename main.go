@@ -4,7 +4,6 @@ import (
 	"htmx/api"
 	"htmx/globals"
 	"htmx/views"
-
 	"github.com/a-h/templ"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
