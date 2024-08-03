@@ -20,6 +20,10 @@ func countHandler(c echo.Context) error {
 func apiHandler(c echo.Context) error {
 	return render(c, views.ApiResult(api.ApiCall()))
 }
+func typeHandler(c echo.Context) error {
+  route := c.ParamValues()[0]
+	return render(c, views.TypePage(c, api.PokemonCall(route)))
+}
 func render(c echo.Context, cmp templ.Component) error {
 	return cmp.Render(c.Request().Context(), c.Response())
 }
@@ -29,5 +33,6 @@ func main() {
 	e.Use(middleware.Logger())
 	e.GET("/", homeHandler)
 	e.POST("/count", countHandler)
+	e.GET("/type/:id", typeHandler)
 	e.Logger.Fatal(e.Start(":6969"))
 }

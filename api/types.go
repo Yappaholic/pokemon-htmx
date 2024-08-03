@@ -30,3 +30,4 @@ func ApiCall() []Type {
 	json.Unmarshal(responseData, &responseObject)
 	return responseObject.Results
 }
+
