@@ -10,7 +10,6 @@ import templruntime "github.com/a-h/templ/runtime"
 
 import (
 	"htmx/api"
-	"htmx/globals"
 )
 
 func Index() templ.Component {
@@ -39,15 +38,15 @@ func Index() templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</nav><div id=\"content\"><h1 class=\"text-xl font-bold\">Count render</h1>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</nav><div id=\"content\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = Count(globals.Number).Render(ctx, templ_7745c5c3_Buffer)
+		templ_7745c5c3_Err = Search().Render(ctx, templ_7745c5c3_Buffer)
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<button hx-post=\"/count\" hx-target=\"#count\" class=\"bg-orange-300 px-4 rounded-full\">Click me</button></div></body></html>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></body></html>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

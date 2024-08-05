@@ -2,7 +2,6 @@ package views
 
 import (
 	"htmx/api"
-	"htmx/globals"
 )
 
 templ Index() {
@@ -20,14 +19,8 @@ templ Index() {
 				<h1 class="text-xl font-bold text-center">Types</h1>
 				@ApiResult(api.ApiCall())
 			</nav>
-			<div id="content">
-				<h1 class="text-xl font-bold">Count render</h1>
-				@Count(globals.Number)
-				<button
-					hx-post="/count"
-					hx-target="#count"
-					class="bg-orange-300 px-4 rounded-full"
-				>Click me</button>
+			<div id="content" >
+				@Search()
 			</div>
 		</body>
 	</html>

@@ -1,0 +1,11 @@
+package views
+import (
+  "htmx/api"
+	"htmx/globals"
+)
+
+var result = api.PokemonSearch(globals.SearchQuery) 
+
+templ SearchCall() {
+	<p>{string(result.Name)}</p>
+}

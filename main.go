@@ -24,15 +24,28 @@ func typeHandler(c echo.Context) error {
   route := c.ParamValues()[0]
 	return render(c, views.TypePage(c, api.PokemonCall(route)))
 }
+func searchUpdate(c echo.Context) error {
+  globals.SearchQuery = c.FormValue("query") 
+  return c.NoContent(200) 
+}
+func searchHandler(c echo.Context) error {
+  if (len(globals.SearchQuery) != 0) {
+  return render(c, views.SearchCall())
+  } else {
+  return c.Redirect(404, "/search/lucky")
+  }
+}
 func render(c echo.Context, cmp templ.Component) error {
 	return cmp.Render(c.Request().Context(), c.Response())
 }
 func main() {
 	e := echo.New()
-	e.Static("/static", "static")
+	e.Static("/static", "./static")
 	e.Use(middleware.Logger())
 	e.GET("/", homeHandler)
 	e.POST("/count", countHandler)
 	e.GET("/type/:id", typeHandler)
+	e.PUT("/search", searchUpdate)
+	e.GET("/search/query", searchHandler)
 	e.Logger.Fatal(e.Start(":6969"))
 }
