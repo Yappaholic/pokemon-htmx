@@ -6,16 +6,17 @@ import (
 	"log"
 	"net/http"
 )
-type Ability struct {
-  AbilityName struct{Name string}
+type AbilityItem struct {
+  Ability struct{Name string}
 }
-type Move struct {
-  MoveName struct {Name string}
+type StatType struct {
+  Base_stat int
+  Stat struct {Name string}
 }
 type PokemonResult struct {
   Name string;
-  Abilities []Ability;
-  Moves []Move
+  Abilities []AbilityItem;
+  Stats []StatType
 }
 
 func PokemonSearch(query string) PokemonResult {
