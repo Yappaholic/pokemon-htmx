@@ -590,6 +590,10 @@ video {
   flex-direction: column;
 }
 
+.items-start {
+  align-items: flex-start;
+}
+
 .gap-2 {
   gap: 0.5rem;
 }

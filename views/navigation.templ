@@ -6,10 +6,10 @@ import (
 	"htmx/api"
 ) 
 
-templ TypePage(c echo.Context, pokemons []api.Pokemon) {
+templ TypeNavigation(c echo.Context, pokemons []api.Pokemon) {
 	<h1 class="text-xl text-bold">{cases.Title(language.English).String(c.ParamValues()[0])} Type</h1>
 	for _, item := range pokemons {
-		<p>{item.Pokemon.Name}</p>
+		<button hx-push-url="true" hx-target="#content" hx-get={"/search?query=" + item.Pokemon.Name}>{item.Pokemon.Name}</button>
 	}
 	} 
 

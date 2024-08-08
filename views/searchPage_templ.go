@@ -26,7 +26,7 @@ func Search() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"search\" class=\"flex flex-col gap-4\"><h1 class=\"text-2xl font-bold\">Welcome to Pokemon search page!</h1><h2>Feel free to check types of pokemons<hr class=\"invisible\">Or search a specific one.</h2><form hx-post=\"/search\" hx-target=\"#content\" hx-push-url=\"true\"><input type=\"text\" placeholder=\"pokemon name or id\" name=\"query\" class=\"shadow-xl bg-gray-300 rounded-md pl-2 py-1 pr-2 mb-2\"><div id=\"search-buttons\"><button type=\"submit\" name=\"random\" value=\"false\" class=\"rounded-md bg-gray-300 px-4 shadow-md\">Search</button> <button type=\"submit\" name=\"random\" value=\"true\" class=\"rounded-md bg-gray-300 px-4 shadow-md\">I feel lucky!</button></div></form></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div id=\"search\" class=\"flex flex-col gap-4\"><h1 class=\"text-2xl font-bold\">Welcome to Pokemon search page!</h1><h2>Feel free to check types of pokemons<hr class=\"invisible\">Or search a specific one.</h2><form hx-get=\"/search\" hx-indicator=\"#loader\" hx-target=\"#content\" hx-push-url=\"true\"><input type=\"text\" minlength=\"1\" placeholder=\"pokemon name or id\" name=\"query\" class=\"shadow-xl bg-gray-300 rounded-md pl-2 py-1 pr-2 mb-2\"><div id=\"search-buttons\" required><button type=\"submit\" class=\"rounded-md bg-gray-300 px-4 shadow-md\">Search</button> <button type=\"submit\" class=\"rounded-md bg-gray-300 px-4 shadow-md\">I feel lucky!</button></div></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

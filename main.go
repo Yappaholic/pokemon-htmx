@@ -19,13 +19,13 @@ func apiHandler(c echo.Context) error {
 }
 func typeHandler(c echo.Context) error {
   route := c.ParamValues()[0]
-	return render(c, views.TypePage(c, api.PokemonCall(route)))
+	return render(c, views.TypeNavigation(c, api.PokemonCall(route)))
 }
 func searchHandler(c echo.Context) error {
-  if c.FormValue("random") == "true" {
-    return c.Redirect(200, "/search/lucky") 
-  } 
-  query := c.FormValue("query")
+  query := c.QueryParam("query")
+  if query == "" {
+    return c.Redirect(308, "/search/lucky")
+  }
   searchResult := api.PokemonSearch(query) 
   return render(c, views.SearchCall(searchResult))
   
@@ -44,7 +44,7 @@ func main() {
 	e.Use(middleware.Logger())
 	e.GET("/", homeHandler)
 	e.GET("/type/:id", typeHandler)
-	e.POST("/search", searchHandler)
+	e.GET("/search", searchHandler)
 	e.GET("/search/lucky", luckyHandler)
 	e.Logger.Fatal(e.Start(":6969"))
 }
