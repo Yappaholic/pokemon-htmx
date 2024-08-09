@@ -1,0 +1,20 @@
+{{ block "index" . }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/static/css/output.css">
+	<script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
+	<title>HTMX-NO-TEMPL</title>
+</head>
+<body class="grid grid-cols-[8rem_auto] h-svh">
+	<nav class="flex flex-col text-center top-0 sticky h-svh">
+	{{template "navigation" .}}
+	</nav>
+	<div id="content" class="flex px-1">
+	</div>
+</body>
+</html>
+{{ end }}
+

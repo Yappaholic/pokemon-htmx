@@ -1,0 +1,7 @@
+{{block "typeList" .}}
+<ul class="flex flex-col">
+{{range .List}}
+  <button hx-get="/pokemon/{{.Pokemon.Name}}" hx-target="#content">{{.Pokemon.Name}}</button>
+{{end}}
+</ul>
+{{end}}

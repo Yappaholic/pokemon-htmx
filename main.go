@@ -1,50 +1,41 @@
 package main
 
 import (
+	"html/template"
 	"htmx/api"
-	"htmx/views"
-	"github.com/a-h/templ"
+	"io"
+
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	"math/rand/v2"
-	"strconv"
 )
-
-func homeHandler(c echo.Context) error {
-	return render(c, views.Index())
+type Templates struct {
+  templates *template.Template
+}
+func (t *Templates) Render (w io.Writer, name string, data interface{}, c echo.Context) error {
+  return t.templates.ExecuteTemplate(w, name, data) 
 }
 
-func apiHandler(c echo.Context) error {
-	return render(c, views.ApiResult(api.ApiCall()))
+func NewTemplate () *Templates {
+  return &Templates {
+    templates: template.Must(template.ParseGlob("views/*.html")),
+  }
+}
+func homeHandler(c echo.Context) error {
+	return c.Render(200, "index", data)
 }
 func typeHandler(c echo.Context) error {
-  route := c.ParamValues()[0]
-	return render(c, views.TypeNavigation(c, api.PokemonCall(route)))
+	type d struct {List []api.PokemonList}
+	typeList := api.GetTypePokemons(c)
+	return c.Render(200, "typeList", d{List: typeList})
 }
-func searchHandler(c echo.Context) error {
-  query := c.QueryParam("query")
-  if query == "" {
-    return c.Redirect(308, "/search/lucky")
-  }
-  searchResult := api.PokemonSearch(query) 
-  return render(c, views.SearchCall(searchResult))
-  
-}
-func luckyHandler(c echo.Context) error {
-  id := strconv.Itoa(rand.IntN(100))
-  searchResult := api.PokemonSearch(id) 
-  return render(c, views.SearchCall(searchResult))
-}
-func render(c echo.Context, cmp templ.Component) error {
-	return cmp.Render(c.Request().Context(), c.Response())
-}
+
 func main() {
-	e := echo.New()
-	e.Static("/static", "./static")
-	e.Use(middleware.Logger())
-	e.GET("/", homeHandler)
-	e.GET("/type/:id", typeHandler)
-	e.GET("/search", searchHandler)
-	e.GET("/search/lucky", luckyHandler)
-	e.Logger.Fatal(e.Start(":6969"))
+  e := echo.New();
+  e.Use(middleware.Logger())
+  e.Static("/static", "static") 
+  e.Renderer = NewTemplate()
+  e.GET("/", homeHandler)
+  e.GET("/type/:name", typeHandler)
+  e.Logger.Fatal(e.Start(":6969"))
+  
 }
