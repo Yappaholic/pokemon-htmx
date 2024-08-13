@@ -566,6 +566,10 @@ video {
   margin-bottom: 0.5rem;
 }
 
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
 .block {
   display: block;
 }
@@ -586,12 +590,28 @@ video {
   grid-template-columns: 8rem auto;
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-cols-\[2fr_1fr\] {
+  grid-template-columns: 2fr 1fr;
+}
+
 .flex-col {
   flex-direction: column;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-right {
+  text-align: right;
 }
 
 .text-xl {

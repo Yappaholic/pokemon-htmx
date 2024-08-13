@@ -16,17 +16,27 @@ func (t *Templates) Render (w io.Writer, name string, data interface{}, c echo.C
 }
 
 func NewTemplate () *Templates {
+  funcMap := template.FuncMap {
+    "Case": Case,
+  }
   return &Templates {
-    templates: template.Must(template.ParseGlob("views/*.html")),
+    templates: template.Must(template.New("templ").Funcs(funcMap).ParseGlob("views/*.html")) ,
   }
 }
 func homeHandler(c echo.Context) error {
 	return c.Render(200, "index", types)
 }
 func typeHandler(c echo.Context) error {
-	type d struct {List []api.PokemonList}
+	//instantiating struct for template rendering
+	type d struct {List []api.PokemonList; Case func(string) string}
 	typeList := api.GetApiResults[api.TypePokemonResult]("type/", c)
-	return c.Render(200, "typeList", d{List: typeList.Pokemon})
+	return c.Render(200, "typeList", d{List: typeList.Pokemon, Case: Case})
+}
+
+func pokemonHandler(c echo.Context) error {
+	type d struct {Pokemon api.Pokemon; Case func(string) string}
+	typeList := api.GetApiResults[api.Pokemon]("pokemon/", c)
+	return c.Render(200, "pokemon", d{Pokemon: typeList, Case: Case})
 }
 
 func main() {
@@ -36,6 +46,7 @@ func main() {
   e.Renderer = NewTemplate()
   e.GET("/", homeHandler)
   e.GET("/type/:name", typeHandler)
+  e.GET("/pokemon/:name", pokemonHandler)
   e.Logger.Fatal(e.Start(":6969"))
   
 }

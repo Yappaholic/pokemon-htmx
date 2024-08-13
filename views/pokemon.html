@@ -1,0 +1,11 @@
+{{ block "pokemon" .}}
+<div id="pokemon" class="ml-2">
+	<p>{{.Pokemon.Name | Case}}</p>
+	<div id="stats" class="grid grid-cols-[2fr_1fr] gap-2">
+	{{range $_, $stat := .Pokemon.Stats}}
+		<p>{{$stat.Stat.Name | Case}}</p>
+		<p class="text-right">{{$stat.Base_stat}}</p>
+	{{end}}
+	</div>
+</div>
+{{end}}

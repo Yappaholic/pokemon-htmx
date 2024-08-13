@@ -7,9 +7,11 @@ import (
   "io"
   "os"
 )
+
 type Type struct {
   Name string
 }
+//Results in types list for sidebar navigation
 type TypeResults struct {
   Results []Type
 }
@@ -17,13 +19,22 @@ type TypeResults struct {
 type PokemonList struct {
   Pokemon struct{Name string}
 }
-
+//Results in pokemon list of specified type 
 type TypePokemonResult struct {
   Pokemon []PokemonList
 }
+//Results in stats for a specific pokemon
+type TypeStats struct {
+  Base_stat int
+  Stat struct {Name string}
+}
+type Pokemon struct {
+  Name string
+  Stats []TypeStats
+}
 
 type Result interface {
-  TypeResults | TypePokemonResult
+  TypeResults | TypePokemonResult | Pokemon
 }
 func GetApiResults [T Result] (query string, c... echo.Context) T {
   var url string
