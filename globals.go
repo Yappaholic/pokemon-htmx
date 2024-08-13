@@ -3,8 +3,10 @@ package main
 import (
   "htmx/api"
 )
-type Data struct {
+type Data[T api.Result] struct {
   Count int
-  Types []api.Type
+  ApiResult T
 }
-var data = Data {Count: 0, Types: api.GetTypes()}
+var typesData = api.GetApiResults[api.TypeResults]("type")
+
+var types = Data[api.TypeResults] {Count: 0, ApiResult: typesData}

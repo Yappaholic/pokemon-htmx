@@ -1,6 +1,6 @@
 {{block "navigation" .}}
 <h1 class="text-xl mb-2">Types</h1>
-{{range .Types }}
+{{range .ApiResult.Results }}
 	<button class="text-md" hx-get="/type/{{.Name}}" hx-target="#content" hx-push-url="true">{{.Name}}</button>
 {{end}}
 {{end}}

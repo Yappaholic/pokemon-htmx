@@ -21,12 +21,12 @@ func NewTemplate () *Templates {
   }
 }
 func homeHandler(c echo.Context) error {
-	return c.Render(200, "index", data)
+	return c.Render(200, "index", types)
 }
 func typeHandler(c echo.Context) error {
 	type d struct {List []api.PokemonList}
-	typeList := api.GetTypePokemons(c)
-	return c.Render(200, "typeList", d{List: typeList})
+	typeList := api.GetApiResults[api.TypePokemonResult]("type/", c)
+	return c.Render(200, "typeList", d{List: typeList.Pokemon})
 }
 
 func main() {
