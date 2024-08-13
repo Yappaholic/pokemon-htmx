@@ -1,6 +1,6 @@
 {{ block "index" . }}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="min-h-svh">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +8,15 @@
 	<script src="https://unpkg.com/htmx.org@2.0.1" integrity="sha384-QWGpdj554B4ETpJJC9z+ZHJcA/i59TyjxEPXiiUgN2WmTyV5OEZWCD6gQhgkdpB/" crossorigin="anonymous"></script>
 	<title>HTMX-NO-TEMPL</title>
 </head>
-<body class="grid grid-cols-[8rem_auto] h-svh">
-	<nav class="flex flex-col text-center top-0 sticky h-svh">
+<body class="grid grid-cols-[8rem_auto] min-h-svh">
+	<nav class="flex flex-col text-center top-0 sticky min-h-svh max-h-svh">
 	{{template "navigation" .}}
 	</nav>
-	<div id="content" class="flex">
+	<div id="content" class="flex flex-col w-auto max-w-64">
+	</div>
+	<div class="htmx-indicator mx-auto my-auto" id="loader">
+		<img alt="Result loading..." class="mx-auto" src="/static/img/load.gif" width="80px" height="80px"/>
+		<p class="mx-auto text-md">Searching for pokemons...</p>
 	</div>
 </body>
 </html>

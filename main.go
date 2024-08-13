@@ -28,9 +28,9 @@ func homeHandler(c echo.Context) error {
 }
 func typeHandler(c echo.Context) error {
 	//instantiating struct for template rendering
-	type d struct {List []api.PokemonList; Case func(string) string}
+	type d struct {List []api.PokemonList; Case func(string) string; Type string}
 	typeList := api.GetApiResults[api.TypePokemonResult]("type/", c)
-	return c.Render(200, "typeList", d{List: typeList.Pokemon, Case: Case})
+	return c.Render(200, "typeList", d{List: typeList.Pokemon, Case: Case, Type: c.Param("name")})
 }
 
 func pokemonHandler(c echo.Context) error {

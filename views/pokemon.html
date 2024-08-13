@@ -1,11 +1,12 @@
 {{ block "pokemon" .}}
-<div id="pokemon" class="ml-2">
-	<p>{{.Pokemon.Name | Case}}</p>
-	<div id="stats" class="grid grid-cols-[2fr_1fr] gap-2">
+<div id="pokemon" class="ml-4 flex flex-col gap-2">
+	<p class="text-xl mb-2">{{.Pokemon.Name | Case}}</p>
+	<div id="stats" class="grid grid-cols-[2fr_1fr] gap-2 shadow-xl rounded-md p-1">
 	{{range $_, $stat := .Pokemon.Stats}}
 		<p>{{$stat.Stat.Name | Case}}</p>
 		<p class="text-right">{{$stat.Base_stat}}</p>
 	{{end}}
 	</div>
+	<img src="{{.Pokemon.Sprites.Front_default}}" height="240px" width="240px" class="shadow-xl rounded-md p-1 bg-inherit"/>
 </div>
 {{end}}

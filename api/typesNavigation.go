@@ -31,6 +31,7 @@ type TypeStats struct {
 type Pokemon struct {
   Name string
   Stats []TypeStats
+  Sprites struct{Front_default string}
 }
 
 type Result interface {

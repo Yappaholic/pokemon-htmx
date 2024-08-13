@@ -1,7 +1,9 @@
 {{block "typeList" .}}
-<ul class="flex flex-col">
+<h1 class="text-center text-xl font-bold sticky top-0 bg-white">{{.Type | Case}} type pokemons</h1>
+<br/>
+<ul  id="list" class="flex flex-col gap-1">
 {{range .List}}
-  <button hx-get="/pokemon/{{.Pokemon.Name}}" hx-target="#content">{{.Pokemon.Name | Case}}</button>
+  <button class="text-left ml-2 rounded-md bg-orange-200" hx-get="/pokemon/{{.Pokemon.Name}}" hx-indicator="#loader" hx-target="#content" hx-trigger="click">{{.Pokemon.Name | Case}}</button>
 {{end}}
 </ul>
 {{end}}
