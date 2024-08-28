@@ -4,7 +4,6 @@ import (
 	"html/template"
 	"htmx/api"
 	"io"
-
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
@@ -35,8 +34,17 @@ func typeHandler(c echo.Context) error {
 
 func pokemonHandler(c echo.Context) error {
 	type d struct {Pokemon api.Pokemon; Case func(string) string}
+	type e struct {Error string}
 	typeList := api.GetApiResults[api.Pokemon]("pokemon/", c)
-	return c.Render(200, "pokemon", d{Pokemon: typeList, Case: Case})
+	if typeList.Name != "" {
+  	return c.Render(200, "pokemon", d{Pokemon: typeList, Case: Case})
+	} else {
+  	return c.Render(303, "error", e{Error: "Pokemon not Found!"})
+	}
+}
+func searchHandler(c echo.Context) error {
+  search := "/pokemon/" + c.QueryParam("name")
+  return c.Redirect(302,search)
 }
 
 func main() {
@@ -47,6 +55,7 @@ func main() {
   e.GET("/", homeHandler)
   e.GET("/type/:name", typeHandler)
   e.GET("/pokemon/:name", pokemonHandler)
+  e.GET("/search", searchHandler)
   e.Logger.Fatal(e.Start(":6969"))
   
 }
