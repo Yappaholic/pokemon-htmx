@@ -17,7 +17,7 @@ type TypeResults struct {
 }
 
 type PokemonList struct {
-  Pokemon struct{Name string}
+  Pokemon struct{Name string; Url string}
 }
 //Results in pokemon list of specified type 
 type TypePokemonResult struct {

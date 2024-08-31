@@ -1,9 +1,12 @@
 {{block "typeList" .}}
 <h1 class="text-center text-xl font-bold sticky top-0 bg-white">{{.Type | Case}} type pokemons</h1>
 <br/>
-<ul  id="list" class="flex flex-col gap-1">
+<ul  id="list" class="flex flex-wrap gap-1">
 {{range .List}}
-  <button class="text-left ml-2 rounded-md bg-orange-200" hx-get="/pokemon/{{.Pokemon.Name}}" hx-indicator="#loader" hx-target="#content" hx-trigger="click">{{.Pokemon.Name | Case}}</button>
+	<button class="rounded-md shadows-md bg-orange-300 flex flex-col items-center" hx-get="/pokemon/{{.Pokemon.Name}}" hx-indicator="#loader" hx-target="#content" hx-trigger="click">
+  <img hx-get="/pokemon/{{.Pokemon.Name}}" src={{.Pokemon.Url | Id}} width=80 height=80><img/>
+  <p class="text-center px-2 rounded-md" >{{.Pokemon.Name | Case}}</p>
+	</button>
 {{end}}
 </ul>
 {{end}}

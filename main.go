@@ -17,6 +17,7 @@ func (t *Templates) Render (w io.Writer, name string, data interface{}, c echo.C
 func NewTemplate () *Templates {
   funcMap := template.FuncMap {
     "Case": Case,
+    "Id": Id,
   }
   return &Templates {
     templates: template.Must(template.New("templ").Funcs(funcMap).ParseGlob("views/*.html")) ,
