@@ -1,6 +1,12 @@
 {{block "navigation" .}}
-<h1 class="text-xl mb-2">Types</h1>
+<h1 class="text-xl mb-1">Types</h1>
 {{range .ApiResult.Results }}
-	<button class="text-lg py-2 px-2" hx-get="/type/{{.Name}}" hx-indicator="#loader" hx-target="#content">{{.Name | Case}}</button>
+	{{ if eq .Name "stellar" }}
+
+	{{ else  if eq .Name "unknown" }}
+
+  {{ else }}
+    <button class="text-md py-1 px-2" hx-get="/type/{{.Name}}" hx-indicator="#loader" hx-target="#content">{{.Name | Case}}</button>
+	{{ end }}
 {{end}}
 {{end}}

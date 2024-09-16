@@ -1,9 +1,7 @@
 {{block "search" .}}
-	<form id="form" hx-get="/search">
-	<h2>Welcome to the Pokemon search!</h2>
-	<h3>You can search by the types in the navigation or by typing the pokemon name.</h3>
+	<form id="form" hx-get="/search" hx-target="#content" class="flex gap-2">
 	<input class="shadow-md" name="name"></input>
-	<button type="submit">Search</button>
+	<button type="submit" hx-indicator="#loader">Search</button>
 	</form>
 {{end}}
 
