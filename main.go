@@ -33,15 +33,31 @@ func typeHandler(c echo.Context) error {
 	return c.Render(200, "typeList", d{List: typeList.Pokemon, Case: Case, Type: c.Param("name")})
 }
 
-func pokemonHandler(c echo.Context) error {
+func pokemonHandler (c echo.Context) error  {
 	type d struct {Pokemon api.Pokemon; Case func(string) string}
 	type e struct {Error string}
 	typeList := api.GetApiResults[api.Pokemon]("pokemon/", c)
-	if typeList.Name != "" {
-  	return c.Render(200, "pokemon", d{Pokemon: typeList, Case: Case})
-	} else {
-  	return c.Render(303, "error", e{Error: "Pokemon not Found!"})
-	}
+  if c.Request().Header["HX-Request"] != nil {
+    if typeList.Name != "" {
+    	return c.Render(200, "pokemon", d{Pokemon: typeList, Case: Case})
+    } else {
+    	return c.Render(303, "error", e{Error: "Pokemon not Found!"})
+    }
+  } else {
+    return pokemonSelfHandler(c, typeList)
+  }
+}  
+
+func pokemonSelfHandler (c echo.Context, typelist api.Pokemon) (error,error) {
+  	type d struct {Pokemon api.Pokemon; Case func(string) string}
+  	type e struct {Error string}
+  	if typelist.Name != "" {
+    	return c.Render(200, "index", types), c.Render(200, "pokemon", d{Pokemon: typelist, Case: Case})
+  	} else {
+  	  c.Render(200, "index", types)
+    	return c.Render(200,"index", types), c.Render(303, "error", e{Error: "Pokemon not Found!"})
+  	}
+  
 }
 func searchHandler(c echo.Context) error {
   search := "/pokemon/" + c.QueryParam("name")
